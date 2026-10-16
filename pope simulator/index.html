@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f4ed">
+  <title>Peter's Chair — A Papal Simulator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="seal">P</div><div><div class="brand-name" id="brand-name">Peter's Chair</div><div class="brand-sub" id="brand-sub">A papal simulator</div></div></div>
+      <div class="top-meta">
+        <div class="calendar"><strong id="date-label">March 2031</strong> &nbsp;·&nbsp; Year <strong id="year-count">1</strong> of 10</div>
+        <div class="save-state"><span class="save-dot"></span><span id="save-label">Saved locally</span></div>
+        <button class="icon-button" id="reset-button" title="Begin a new pontificate" aria-label="Begin a new pontificate">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 12a9 9 0 1 0 2.6-6.4L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+      </div>
+    </header>
+    <section class="overview" aria-label="Pontificate overview">
+      <div class="stat members"><div class="stat-top"><span class="stat-label">Faithful</span><span class="stat-change" id="members-change">+0m this year</span></div><div class="stat-value"><span id="members-value">1.32</span><small style="font:10px 'DM Mono',monospace;color:var(--muted)">bn</small></div><div class="stat-track"><div class="stat-fill" id="members-fill"></div></div></div>
+      <div class="stat connections"><div class="stat-top"><span class="stat-label">Diplomatic ties</span><span class="stat-change" id="connections-change">+0 this year</span></div><div class="stat-value" id="connections-value">54</div><div class="stat-track"><div class="stat-fill" id="connections-fill"></div></div></div>
+      <div class="stat treasury"><div class="stat-top"><span class="stat-label">Apostolic treasury</span><span class="stat-change">Annual income</span></div><div class="stat-value"><span id="treasury-value">68</span><small style="font:10px 'DM Mono',monospace;color:var(--muted)">m</small></div><div class="stat-track"><div class="stat-fill" id="treasury-fill"></div></div></div>
+      <div class="stat credibility"><div class="stat-top"><span class="stat-label">Public trust</span><span class="stat-change" id="trust-change">Holding steady</span></div><div class="stat-value"><span id="trust-value">62</span><small style="font:10px 'DM Mono',monospace;color:var(--muted)">/ 100</small></div><div class="stat-track"><div class="stat-fill" id="trust-fill"></div></div></div>
+    </section>
+    <main class="layout">
+      <section class="map-panel" aria-label="World map">
+        <div class="panel-head"><div class="head-left"><span class="eyebrow">The apostolic mission</span><span class="panel-title">World at a glance</span></div><div class="map-legend"><span class="legend-item"><span class="legend-dot"></span>Selected</span><span class="legend-item"><span class="legend-dot visited"></span>Visited</span><span class="legend-item"><span class="legend-dot home"></span>Home</span></div></div>
+        <div class="map-wrap">
+          <svg class="map-svg" viewBox="0 0 900 430" role="img" aria-label="Map of the world. Select a marked country to focus its mission.">
+            <defs><pattern id="grid" width="72" height="54" patternUnits="userSpaceOnUse"><path d="M72 0H0V54" fill="none" stroke="#afc6bc" stroke-width=".55"/></pattern></defs>
+            <rect width="900" height="430" fill="#d7e5df"/><rect width="900" height="430" fill="url(#grid)" class="ocean-grid"/>
+            <path class="land" d="M67 93 93 77 125 74 148 60 184 66 197 79 230 78 254 95 270 118 256 132 265 148 251 166 236 168 229 191 212 195 205 220 189 225 183 246 167 247 157 231 149 211 133 199 126 177 107 168 101 150 80 140 69 119Z"/>
+            <path class="land" d="M206 219 226 215 243 230 252 256 244 279 257 299 248 327 238 350 222 372 213 357 205 330 193 307 191 280 180 258 189 235Z"/>
+            <path class="land" d="M312 102 330 88 350 90 362 101 354 114 338 118Z"/>
+            <path class="land" d="M385 110 405 92 434 85 452 92 474 87 494 94 512 88 535 93 550 104 578 101 597 114 620 113 641 128 655 147 647 162 627 159 618 172 597 171 587 185 571 182 554 194 534 190 520 203 504 198 490 212 473 206 464 224 451 223 445 248 433 268 422 275 412 260 407 237 399 224 397 205 387 191 378 170 365 154 370 132Z"/>
+            <path class="land" d="M414 229 431 220 451 227 468 249 474 276 467 302 454 326 439 346 426 339 416 316 405 297 401 270Z"/>
+            <path class="land" d="M480 213 499 204 517 211 532 223 548 229 561 244 577 247 584 263 579 280 568 283 561 300 544 305 533 294 518 288 508 275 495 268 486 249 475 238Z"/>
+            <path class="land" d="M547 310 566 302 586 309 603 326 608 343 598 354 582 349 569 363 555 351 541 335Z"/>
+            <path class="land" d="M635 132 652 122 674 125 690 137 687 153 672 159 660 151 644 155Z"/>
+            <path class="land" d="M691 277 712 270 733 277 740 290 728 299 709 296Z"/>
+            <path class="land" d="M748 340 762 331 780 337 789 351 778 362 760 357Z"/>
+            <path class="land" d="M844 188 850 176 856 187 853 203 847 211Z"/>
+            <path class="country-shape" data-country="United States" d="M102 96 145 79 185 83 216 91 248 104 256 126 239 143 226 166 208 171 189 183 170 178 148 164 125 157 108 141Z"/>
+            <path class="country-shape" data-country="Brazil" d="M224 235 242 235 251 255 245 280 253 302 240 336 225 361 214 342 207 315 198 286 194 260 206 243Z"/>
+            <path class="country-shape" data-country="Argentina" d="M210 313 225 310 232 331 224 361 218 377 210 360 204 339Z"/>
+            <path class="country-shape" data-country="United Kingdom" d="M393 120 400 115 404 124 399 131Z"/>
+            <path class="country-shape" data-country="France" d="M410 137 425 133 432 143 425 154 412 152Z"/>
+            <path class="country-shape" data-country="Italy" d="M436 151 445 153 449 169 458 178 454 187 446 180 443 168 437 165Z"/>
+            <path class="country-shape" data-country="Poland" d="M444 125 462 121 469 132 462 143 446 141Z"/>
+            <path class="country-shape" data-country="Nigeria" d="M410 243 428 239 434 250 426 263 411 260Z"/>
+            <path class="country-shape" data-country="Democratic Republic of the Congo" d="M423 270 440 266 451 281 443 298 428 300 419 286Z"/>
+            <path class="country-shape" data-country="India" d="M522 206 539 203 552 216 548 239 540 253 533 243 526 226Z"/>
+            <path class="country-shape" data-country="Philippines" d="M610 228 617 219 622 231 618 245 612 241Z"/>
+            <path class="country-shape" data-country="Japan" d="M656 164 662 158 666 169 662 184 657 178Z"/>
+            <path class="country-shape" data-country="Mexico" d="M158 174 177 179 195 194 201 210 193 218 183 205 170 199Z"/>
+            <path class="country-shape" data-country="Lebanon" d="M470 177 475 174 477 185 472 189Z"/>
+            <path class="country-shape" data-country="China" d="M542 123 557 113 576 118 587 109 610 119 632 131 641 147 631 157 617 156 608 169 590 172 577 165 559 162 548 150Z"/>
+            <path class="country-shape" data-country="Australia" d="M691 277 712 269 735 277 742 291 729 301 708 297Z"/>
+            <text class="ocean-label" x="278" y="186">ATLANTIC</text><text class="ocean-label" x="722" y="209">PACIFIC</text><text class="ocean-label" x="581" y="288">INDIAN OCEAN</text>
+            <g id="visit-routes"></g>
+            <g class="map-place" data-country="United States" transform="translate(174 126)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="185" y="124">USA</text>
+            <g class="map-place" data-country="Brazil" transform="translate(226 278)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="237" y="276">BRAZIL</text>
+            <g class="map-place" data-country="Argentina" transform="translate(217 342)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="228" y="342">ARG.</text>
+            <g class="map-place" data-country="United Kingdom" transform="translate(397 125)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="373" y="111">U.K.</text>
+            <g class="map-place" data-country="France" transform="translate(418 144)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="394" y="160">FRANCE</text>
+            <g class="map-place" data-country="Italy" transform="translate(444 163)"><circle class="place-ring" r="7"/><circle class="place-core" r="2.8"/></g><text class="map-label" x="452" y="160">ITALY</text>
+            <g class="map-place" data-country="Poland" transform="translate(455 133)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="462" y="127">POLAND</text>
+            <g class="map-place" data-country="Nigeria" transform="translate(419 250)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="392" y="242">NIGERIA</text>
+            <g class="map-place" data-country="Democratic Republic of the Congo" transform="translate(435 282)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="442" y="293">DR CONGO</text>
+            <g class="map-place" data-country="India" transform="translate(537 226)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="545" y="223">INDIA</text>
+            <g class="map-place" data-country="Philippines" transform="translate(616 232)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="623" y="240">PHILIPPINES</text>
+            <g class="map-place" data-country="Japan" transform="translate(660 173)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="670" y="170">JAPAN</text>
+            <g class="map-place" data-country="Mexico" transform="translate(184 196)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="153" y="213">MEXICO</text>
+            <g class="map-place" data-country="Lebanon" transform="translate(473 181)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="480" y="180">LEBANON</text>
+            <g class="map-place" data-country="China" transform="translate(590 145)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="599" y="143">CHINA</text>
+            <g class="map-place" data-country="Australia" transform="translate(718 286)"><circle class="place-ring" r="6"/><circle class="place-core" r="2.4"/></g><text class="map-label" x="726" y="284">AUSTRALIA</text>
+          </svg>
+          <div class="map-caption">Selected mission &nbsp;·&nbsp; <strong id="map-selected-label">Italy</strong></div>
+        </div>
+        <div class="country-strip"><div class="country-info"><div class="country-name" id="country-name">Italy</div><div class="country-context" id="country-context">The heart of the Church; reform-minded clergy seek a steadier hand.</div><div class="ecumenical-summary" id="ecumenical-summary"></div><div class="country-origin" id="country-origin" hidden></div></div><div class="country-stats"><div class="country-stat">Catholics<b id="country-faithful">47.6m</b></div><div class="country-stat">Relations<b id="country-relations">68 / 100</b></div><div class="country-stat">Bishop<b id="country-bishop">Card. Conti</b></div></div></div>
+      </section>
+      <aside class="side">
+        <div class="side-tabs" role="tablist" aria-label="Papal affairs"><button class="side-tab" id="audience-tab" type="button" role="tab" aria-controls="audience-panel" aria-selected="true" data-side-tab="audience">Audience</button><button class="side-tab" id="churches-tab" type="button" role="tab" aria-controls="churches-panel" aria-selected="false" data-side-tab="churches">Faith &amp; Dialogue</button><button class="side-tab" id="court-tab" type="button" role="tab" aria-controls="court-panel" aria-selected="false" data-side-tab="court">Court &amp; Domain</button><button class="side-tab" id="lifestyle-tab" type="button" role="tab" aria-controls="lifestyle-panel" aria-selected="false" data-side-tab="lifestyle">Lifestyle</button></div>
+        <section class="side-panel" id="audience-panel" role="tabpanel" aria-labelledby="audience-tab"><div class="side-head"><span class="side-title">Papal audience</span><span class="action-count" id="action-count">3 actions left</span></div><div class="actions" id="action-list"></div></section>
+        <section class="side-panel" id="churches-panel" role="tabpanel" aria-labelledby="churches-tab" hidden><div class="side-head"><span class="side-title">Ecumenical relations</span><span class="eyebrow" id="church-country-label">Italy</span></div><div class="church-list" id="church-list"></div><div class="church-detail" id="church-detail"></div><div class="church-actions" id="church-actions"></div></section>
+        <section class="side-panel" id="court-panel" role="tabpanel" aria-labelledby="court-tab" hidden><div class="side-head"><span class="side-title">Diocese management</span><span class="eyebrow" id="domain-country-label">Italy</span></div><div class="domain-stats" id="domain-stats"></div><div class="domain-actions" id="domain-actions"></div><div class="side-head"><span class="side-title">Clergy council</span><span class="eyebrow">opinion · loyalty</span></div><div class="court-list" id="clergy-list"></div></section>
+        <section class="side-panel" id="lifestyle-panel" role="tabpanel" aria-labelledby="lifestyle-tab" hidden><div class="side-head"><span class="side-title" id="lifestyle-title">Diplomacy</span><span class="action-count" id="lifestyle-points">0 perk points</span></div><div class="lifestyle-progress" id="lifestyle-progress"></div><div class="perk-tree" id="perk-tree"></div></section>
+        <section class="side-panel"><div class="side-head"><span class="side-title">Voices in the Church</span><span class="eyebrow">standing</span></div><div class="faction-list" id="faction-list"></div></section>
+        <section class="side-panel"><div class="side-head"><span class="side-title">Religious orders</span><span class="eyebrow">influence</span></div><div class="order-grid" id="order-grid"></div></section>
+      </aside>
+    </main>
+    <section class="lower">
+      <div class="chronicle"><div class="chronicle-head"><span class="chronicle-title">The Holy See · dispatches</span><span class="eyebrow">Recent affairs</span></div><div class="log" id="log-list"></div></div>
+      <div class="month-box"><div class="month-row"><span class="month-caption">Pontifical calendar</span><span class="month-value" id="month-box-value">March · 2031</span></div><div class="month-track"><div class="month-fill" id="month-fill"></div></div><button class="advance-btn" id="advance-button">Conclude the month <span aria-hidden="true">→</span></button></div>
+    </section>
+    <footer class="footer-note"><span>Ad maiorem Dei gloriam</span><span id="footer-year">The first year of a new pontificate</span></footer>
+  </div>
+  <div class="modal-backdrop" id="event-modal" role="dialog" aria-modal="true" aria-labelledby="event-title">
+    <div class="modal"><div class="modal-top"><span class="modal-kicker" id="event-kicker">An urgent matter</span><div class="timer-wrap"><span id="timer-label">Decision in 18</span><div class="timer-track"><div class="timer-fill" id="timer-fill"></div></div></div></div><div class="modal-body"><div class="modal-title" id="event-title"></div><div class="modal-copy" id="event-copy"></div><div class="choices" id="event-choices"></div></div><div class="modal-foot">The faithful and the Curia are watching. Your decision will shape the year ahead.</div></div>
+  </div>
+  <div class="intro" id="intro"><div class="intro-card"><div class="intro-seal">✠ &nbsp;Habemus Papam</div><h1>Choose your pontificate.</h1><p>Choose a papal name, a home country, and a way of leading. Each leaves a mark on your campaign.</p><form id="customization-form"><div class="setup-fields"><label class="setup-label" for="papal-name">Papal name<input class="setup-input" id="papal-name" name="papal-name" value="Leo" maxlength="24" autocomplete="off" required></label><label class="setup-label" for="origin-country">Where you're from<select class="setup-input" id="origin-country" name="origin-country"><option>United States</option><option>Brazil</option><option>Argentina</option><option>United Kingdom</option><option>France</option><option>Italy</option><option>Poland</option><option>Nigeria</option><option>Democratic Republic of the Congo</option><option>India</option><option>Philippines</option><option>Japan</option><option>Mexico</option><option>Lebanon</option></select></label></div><fieldset class="archetype-fieldset"><legend class="archetype-legend">Choose your archetype</legend><div class="archetype-grid"><label class="archetype-choice"><input type="radio" name="archetype" value="diplomat" checked><span class="archetype-card"><span class="archetype-name">The Diplomat</span><span class="archetype-history">Inspired by Paul VI &amp; Leo XIII</span><span class="archetype-perk">Dialogue earns extra diplomatic ties.</span></span></label><label class="archetype-choice"><input type="radio" name="archetype" value="pilgrim"><span class="archetype-card"><span class="archetype-name">The Pilgrim</span><span class="archetype-history">Inspired by John Paul II</span><span class="archetype-perk">Visits bring more faithful; youth are rallied.</span></span></label><label class="archetype-choice"><input type="radio" name="archetype" value="reformer"><span class="archetype-card"><span class="archetype-name">The Reformer</span><span class="archetype-history">Inspired by John XXIII</span><span class="archetype-perk">Encyclicals bridge reform and tradition.</span></span></label><label class="archetype-choice"><input type="radio" name="archetype" value="steward"><span class="archetype-card"><span class="archetype-name">The Steward</span><span class="archetype-history">Inspired by Gregory the Great</span><span class="archetype-perk">The religious orders gain greater influence.</span></span></label></div></fieldset><div class="setup-preview" id="setup-preview" aria-live="polite"></div><button class="start-btn" id="begin-button" type="submit">Begin the Pontificate &nbsp;→</button></form></div></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="game.js" defer></script>
+</body>
+</html>
